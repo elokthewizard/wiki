@@ -1,0 +1,7 @@
+{% extends "encyclopedia/layout.html" %}
+
+{% block body %}
+    {% for item in matching_entry %}
+        <a href="../wiki/{{ item }}">{{ item }}</a>
+    {% endfor %}
+{% endblock %}

@@ -21,6 +21,7 @@ def entry(request, title):
     
 
 def search(request):
+    matching_entry = []
     # grab value within form
     query = request.GET.get('q','')
     if util.get_entry(query):
@@ -28,3 +29,18 @@ def search(request):
             "title": query,
             "page_content": util.get_entry(query)
         })
+    else: 
+        entries = util.list_entries()
+        
+        for entry in entries:
+            if query in entry:
+                matching_entry.append(entry)
+                break
+
+        if matching_entry:
+            return render(request, "encyclopedia/search-results.html", {
+                "matching_entry": matching_entry
+            })
+        # search entries for a substring of query
+        else:
+            return HttpResponseNotFound("<h1>Pardon the dust, WIP</h1>")
