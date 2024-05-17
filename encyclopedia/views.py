@@ -44,3 +44,7 @@ def search(request):
         # search entries for a substring of query
         else:
             return HttpResponseNotFound("<h1>Pardon the dust, WIP</h1>")
+        
+    
+def new_page(request):
+    return render(request, "encyclopedia/new-page.html")
