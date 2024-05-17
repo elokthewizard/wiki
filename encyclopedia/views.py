@@ -9,6 +9,7 @@ def index(request):
         "entries": util.list_entries()
     })
 
+
 def entry(request, title):
     if util.get_entry(title):
         return render(request, "encyclopedia/entry.html", {
@@ -16,4 +17,14 @@ def entry(request, title):
             "page_content": util.get_entry(title)
         })
     else:
-        return HttpResponseNotFound("<h1>Page not found.</h1>")
+        return HttpResponseNotFound("<h1>Error: Page not found.</h1>")
+    
+
+def search(request):
+    # grab value within form
+    query = request.GET.get('q','')
+    if util.get_entry(query):
+        return render(request, "encyclopedia/entry.html", {
+            "title": query,
+            "page_content": util.get_entry(query)
+        })
