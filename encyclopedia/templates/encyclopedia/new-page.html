@@ -2,8 +2,9 @@
 
 {% block body %}
     <form action="" method="post">
+        {% csrf_token %}
         <input type="text" name="title" placeholder="Article Title">
-        <textarea placeholder="Fill in entry details">
+        <textarea placeholder="Fill in entry details" name="markdown">
 
         </textarea>
         <input type="submit"> 

@@ -31,6 +31,7 @@ def search(request):
         })
     else: 
         entries = util.list_entries()
+        # search entries for a substring of query
         
         for entry in entries:
             if query in entry:
@@ -41,10 +42,18 @@ def search(request):
             return render(request, "encyclopedia/search-results.html", {
                 "matching_entry": matching_entry
             })
-        # search entries for a substring of query
+        
         else:
-            return HttpResponseNotFound("<h1>Pardon the dust, WIP</h1>")
+            return HttpResponseNotFound("<h1>No entries found</h1>")
         
     
 def new_page(request):
-    return render(request, "encyclopedia/new-page.html")
+    if request.method == "POST":
+        title = request.POST['title']
+        markdown = request.POST['markdown']
+        if title in util.list_entries():
+            return HttpResponse("<h1>Article with title already exists.</h1>")
+        else:
+            return print("TIME TO TO THE THING")
+    else:
+        return render(request, "encyclopedia/new-page.html")
