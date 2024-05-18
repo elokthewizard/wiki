@@ -54,6 +54,10 @@ def new_page(request):
         if title in util.list_entries():
             return HttpResponse("<h1>Article with title already exists.</h1>")
         else:
-            return print("TIME TO TO THE THING")
+            util.save_entry(title, markdown)
+            return render(request, "encyclopedia/entry.html", {
+            "title": title,
+            "page_content": util.get_entry(title)
+        })
     else:
         return render(request, "encyclopedia/new-page.html")
