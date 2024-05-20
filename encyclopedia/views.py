@@ -1,3 +1,5 @@
+import random
+
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseNotFound
 
@@ -11,7 +13,7 @@ def index(request):
 
 
 def entry(request, title):
-    if util.get_entry(title):
+    if title in util.list_entries():
         return render(request, "encyclopedia/entry.html", {
             "title": title,
             "page_content": util.get_entry(title)
@@ -80,3 +82,13 @@ def edit(request):
             "title": title,
             "page_content": util.get_entry(title)
         })
+    
+def random_page(request):
+    if request.method == "GET":
+        title = random.choice(util.list_entries())
+        return render(request, "encyclopedia/entry.html", {
+            "title": title,
+            "page_content": util.get_entry(title)
+        })
+    else:
+        return HttpResponseNotFound("<h1>Quit playing around!</h1>")
