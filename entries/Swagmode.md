@@ -1,3 +1,3 @@
 # A cool mode 
 
-like beast mode kinda
+**Like beast mode** kinda

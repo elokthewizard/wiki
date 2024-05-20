@@ -1,3 +1,3 @@
-# IDK i guess
+# Baldur's Gate
 
-its like dungeons and dragons!
+Its like Dungeons & Dragons!

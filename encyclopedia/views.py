@@ -1,4 +1,5 @@
 import random
+import markdown2
 
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseNotFound
@@ -16,7 +17,7 @@ def entry(request, title):
     if title in util.list_entries():
         return render(request, "encyclopedia/entry.html", {
             "title": title,
-            "page_content": util.get_entry(title)
+            "page_content": markdown2.markdown(util.get_entry(title))
         })
     else:
         return HttpResponseNotFound("<h1>Error: Page not found.</h1>")
@@ -80,7 +81,7 @@ def edit(request):
         util.save_entry(title, markdown)
         return render(request, "encyclopedia/entry.html", {
             "title": title,
-            "page_content": util.get_entry(title)
+            "page_content": markdown2.markdown(util.get_entry(title))
         })
     
 def random_page(request):
@@ -88,7 +89,7 @@ def random_page(request):
         title = random.choice(util.list_entries())
         return render(request, "encyclopedia/entry.html", {
             "title": title,
-            "page_content": util.get_entry(title)
+            "page_content": markdown2.markdown(util.get_entry(title))
         })
     else:
         return HttpResponseNotFound("<h1>Quit playing around!</h1>")

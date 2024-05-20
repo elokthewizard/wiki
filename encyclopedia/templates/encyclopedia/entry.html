@@ -5,8 +5,7 @@
 {% endblock %}
 
 {% block body %}
-    <h1>{{ title }}</h1>
-    {{ page_content }}
+    {{ page_content|safe }}
     <form action="/edit/" method="GET">
         <input name="title" hidden="true" value="{{ title }}">
         <input type="submit" name="edit" value="Edit">
